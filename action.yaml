@@ -1,0 +1,64 @@
+---
+name: wordwarden
+author: Simon Bengtsson
+description: Spellcheck your text files
+inputs:
+  files:
+    description: "Files to spellcheck, (glob expressions accepted)."
+    required: false
+    default: "**/*.md"
+  language:
+    description: |
+      "Language of your text files, specified as a locale code
+      (in format accepted by aspell, such as en_US)."
+    required: false
+    default: "en_US"
+  dictionary:
+    description: "Path to your personal dictionary in aspell format."
+    required: false
+runs:
+  using: composite
+  steps:
+
+    - name: Install apt prerequisites
+      run: |
+        INPUT_LOCALE=${{ inputs.language }}
+        echo "SPELLLANG=${INPUT_LOCALE:0:2}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Install apt prerequisites
+      run: |
+        echo "::group::Install apt prerequisites"
+        sudo apt update
+        sudo apt install -y -qq aspell pandoc python3-pip aspell-$SPELLLANG
+        echo "::endgroup::"
+      shell: bash
+
+    - name: Install Python requisites
+      run: |
+        echo "::group::Install Python requisites"
+        pip install beautifulsoup4
+        echo "::endgroup::"
+      shell: bash
+
+    - name: Create empty dictionary if none is provided
+      run: |
+        if [ -z "${{ inputs.dictionary }}" ]; then
+          DEFAULT_DICTIONARY=.github/data/wordlist.txt
+          if [ ! -f "$DEFAULT_DICTIONARY" ]; then
+            mkdir -p .github/data
+            echo "personal_ws-1.1 en 12 utf-8" > "$DEFAULT_DICTIONARY"
+          fi
+          echo "DICTIONARY_PATH=$DEFAULT_DICTIONARY" >> $GITHUB_ENV
+        else
+          echo "DICTIONARY_PATH=${{ inputs.dictionary }}" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Spellcheck files
+      run: |
+        python3 spellcheck.py \
+          --dictionary="$DICTIONARY_PATH" \
+          --language="${{ inputs.language }}" \
+          ${{ inputs.files }}
+      shell: bash
