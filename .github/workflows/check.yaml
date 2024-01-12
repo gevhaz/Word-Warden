@@ -1,0 +1,55 @@
+---
+name: Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  spellcheck-default:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run action with defaults
+        uses: ./  # Root of this repo, i.e. wordwarden
+
+  spellcheck-all-parameters:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run action with all parameters used
+        uses: ./  # Root of this repo, i.e. wordwarden
+        with:
+          language: en_GB
+          dictionary: .github/data/all-parameters-wordlist.txt
+          files: test/resources/all_parameters.md
+
+  spellcheck-yaml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test action with YAML
+        uses: ./  # Root of this repo, i.e. wordwarden
+        with:
+          files: test/resources/sample.yaml
+          dictionary: .github/data/yaml-wordlist.txt
+
+  spellcheck-other-language:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test action with other language
+        uses: ./  # Root of this repo, i.e. wordwarden
+        with:
+          files: test/resources/german.md
+          language: de_DE
+          dictionary: .github/data/german-wordlist.txt
