@@ -1,0 +1,30 @@
+---
+dialogue:
+  - speaker: Siddharta
+    line: |
+      I thank you, Samana, for watching out over my sleep. You’re friendly, you
+      followers of the exalted one. Now you may go then.
+    gesture: false
+  - speaker: Govinda
+    line: I’m going, sir. May you, sir, always be in good health.
+    gesture: false
+  - speaker: Siddhartha
+    line: I thank you, Samana.
+    gesture: false
+  - speaker: Govinda
+    line: Farewell.
+    gesture: true
+  - speaker: Siddhartha
+    line: Farewell, Govinda
+    gesture: false
+  - speaker: Govinda
+    line: Permit me to ask, sir, from where do you know my name?
+    gesture: true
+  - speaker: Siddhartha
+    line: |
+      I know you, oh Govinda, from your father’s hut, and from the school of the
+      Brahmans, and from the offerings, and from our walk to the Samanas, and
+      from that hour when you took your refuge with the exalted one in the grove
+      Jetavana.
+    gesture: true
+number_of_lines: 7
