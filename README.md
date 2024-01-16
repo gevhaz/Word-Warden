@@ -19,8 +19,8 @@ jobs:
 ```
 
 If it finds any words that you consider false positives, add them to the file
-`.github/data/wordlist.txt` in your repository (or any other dictionary you
-specify with the `files` option). Make sure to add:
+`.github/data/project-dictionary.txt` in your repository (or any other
+dictionary you specify with the `files` option). Make sure to add:
 
 ```text
 personal_ws-1.1 en 1000 utf-8
@@ -39,9 +39,9 @@ The default language is American English (`en_US`). Set any other language that
 `aspell` accepts with the `language` argument to the Action.
 
 By default the action looks for your personal dictionary at
-`.github/data/wordlist.txt` and if you don't have one there, it acts as if you
-had an empty one. Specify any other location for you dictionary with the
-`dictionary` key.
+`.github/data/project-dictionary.txt` and if you don't have one there, it acts
+as if you had an empty one. Specify any other location for you dictionary with
+the `dictionary` key.
 
 Here is an example with all options used:
 
