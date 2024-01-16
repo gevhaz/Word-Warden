@@ -9,19 +9,13 @@ jobs:
 
   spellcheck-default:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
       - name: Run action with defaults
         uses: ./  # Root of this repo, i.e. wordwarden
 
   spellcheck-all-parameters:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
       - name: Run action with all parameters used
         uses: ./  # Root of this repo, i.e. wordwarden
         with:
@@ -31,10 +25,7 @@ jobs:
 
   spellcheck-yaml:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
       - name: Test action with YAML
         uses: ./  # Root of this repo, i.e. wordwarden
         with:
@@ -43,10 +34,7 @@ jobs:
 
   spellcheck-other-language:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
       - name: Test action with other language
         uses: ./  # Root of this repo, i.e. wordwarden
         with:
