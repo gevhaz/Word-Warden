@@ -130,10 +130,7 @@ def main(args) -> int:
             good_files.append(CheckedFile(filepath=filepath, misspelled_words=[]))
 
     if good_files:
-        if len(good_files) > 1:
-            wrap_print("The following files are free from spelling errors:\n")
-        else:
-            wrap_print("The following file is free from spelling errors:\n")
+        wrap_print("The following file(s) are free from spelling errors:\n")
 
         for good_file in good_files:
             print(f"  - {good_file.filepath}")
@@ -170,9 +167,12 @@ def main(args) -> int:
         wrap_print(
             "If the word in question is more 'inline code' than natural language, you "
             "can circumvent spellchecking by using backticks (`) since inline code is "
-            "not spellchecked.",
-            end="\n",
+            "not spellchecked."
         )
+        wrap_print("The following file(s) may have spelling errors:")
+        for bad_file in bad_files:
+            print(f"  - {bad_file.filepath}")
+        print(f"\n{RED}Some checked files may have spelling errors!{RESET}")
         return 1
 
     return 0
