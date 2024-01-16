@@ -20,6 +20,18 @@ runs:
   using: composite
   steps:
 
+    - name: Checkout repository to spellcheck
+      uses: actions/checkout@v4
+      with:
+        path: evaluated-repository
+
+    - name: Checkout Word Warden
+      uses: actions/checkout@v4
+      with:
+        repository: gevhaz/word-warden
+        ref: v0.1.0
+        path: word-warden
+
     - name: Install apt prerequisites
       run: |
         INPUT_LOCALE=${{ inputs.language }}
@@ -54,11 +66,13 @@ runs:
           echo "DICTIONARY_PATH=${{ inputs.dictionary }}" >> $GITHUB_ENV
         fi
       shell: bash
+      working-directory: evaluated-repository
 
     - name: Spellcheck files
       run: |
-        python3 spellcheck.py \
+        python3 ../word-warden/spellcheck.py \
           --dictionary="$DICTIONARY_PATH" \
           --language="${{ inputs.language }}" \
           ${{ inputs.files }}
       shell: bash
+      working-directory: evaluated-repository
