@@ -16,6 +16,10 @@ inputs:
   dictionary:
     description: "Path to your personal dictionary in aspell format."
     required: false
+  word_warden_ref:
+    description: "Version of Word Warden to checkout (only for development)."
+    default: "v0.1.0"
+    required: false
 runs:
   using: composite
   steps:
@@ -29,7 +33,7 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: gevhaz/word-warden
-        # ref: v0.1.0
+        ref: ${{ inputs.word_warden_ref }}
         path: word-warden
 
     - name: Install apt prerequisites

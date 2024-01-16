@@ -15,6 +15,9 @@ jobs:
 
       - name: Run action with defaults
         uses: ./  # Root of this repo, i.e. wordwarden
+        with:
+          # This setting is necessary or the job will fail.
+          word_warden_ref: "${{ github.ref }}"
 
   spellcheck-all-parameters:
     runs-on: ubuntu-latest
@@ -28,6 +31,7 @@ jobs:
           language: en_GB
           dictionary: .github/data/all-parameters-wordlist.txt
           files: test/resources/all_parameters.md
+          word_warden_ref: "${{ github.ref }}"
 
   spellcheck-yaml:
     runs-on: ubuntu-latest
@@ -40,6 +44,7 @@ jobs:
         with:
           files: test/resources/sample.yaml
           dictionary: .github/data/yaml-wordlist.txt
+          word_warden_ref: "${{ github.ref }}"
 
   spellcheck-other-language:
     runs-on: ubuntu-latest
@@ -53,3 +58,4 @@ jobs:
           files: test/resources/german.md
           language: de_DE
           dictionary: .github/data/german-wordlist.txt
+          word_warden_ref: "${{ github.ref }}"
