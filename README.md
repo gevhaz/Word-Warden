@@ -1,13 +1,13 @@
-# wordwarden
+# Word Warden
 
-**wordwarden** is a GitHub action that spellchecks markdown or other files in
+**Word Warden** is a GitHub action that spellchecks markdown or other files in
 your repository. It uses `aspell` under the hood, checking your text against a
 dictionary for the language of your chose, plus a personal dictionary with your
 own approved words.
 
 ## Usage
 
-Simply include the action `gevhaz/wordwarden` in your job like so:
+Simply include the action `gevhaz/word-warden` in your job like so:
 
 ```yaml
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gevhaz/wordwarden
+      - uses: gevhaz/word-warden
 ```
 
 If it finds any words that you consider false positives, add them to the file
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gevhaz/wordwarden
+      - uses: gevhaz/word-warden
         with:
           language: en_IN
           dictionary: ./words.txt
