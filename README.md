@@ -14,8 +14,7 @@ jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: gevhaz/word-warden
+      - uses: gevhaz/word-warden@v0.1.0
 ```
 
 If it finds any words that you consider false positives, add them to the file
@@ -50,10 +49,40 @@ jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: gevhaz/word-warden
+      - uses: gevhaz/word-warden@v0.1.0
         with:
           language: en_IN
           dictionary: ./words.txt
           files: README.md
 ```
+
+## Development
+
+### Contributing
+
+Contributions are welcome. Feel free to open bug reports and feature requests.
+Pull requests will be reviewed and possibly merged.
+
+### Releasing
+
+Releases are done from the `main` branch. These are the steps:
+
+1. Add a new pull request with a step-up commit that updates:
+    - the changelog,
+    - the default `word_warden_ref` in `action.yaml` with the version number you
+      are about to release, and
+    - the version number in the README, if relevant.
+2. Merge it to `main`.
+3. Add an annotated release tag with the version number, on the step-up commit
+on the `main` branch.
+4. Push the tag.
+5. Manually create a release in the GitHub web interface (will be automated
+later).
+
+### Using unreleased content
+
+Word Warden follows semver. Normally when using it, a version tag (see
+[Releases](https://github.com/gevhaz/Word-Warden/releases)) should be used to
+specify what reference of it should be used. If you want to use a specific
+commit rather than a tag, you need to set the `word_warden_ref` input parameter
+to the hash of the same commit you are checking out with `uses`.

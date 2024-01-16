@@ -11,6 +11,7 @@ Kunst
 Langsam
 Leben
 Lächeln
+README
 Seele
 Suchens
 Vasudeva
@@ -24,6 +25,7 @@ altem
 auf
 aus
 blühte
+changelog
 darum
 das
 denken
@@ -43,6 +45,7 @@ langsam
 nichts
 reifte
 sei
+semver
 strahlte
 und
 wordindictionary
