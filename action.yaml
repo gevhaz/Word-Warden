@@ -1,5 +1,5 @@
 ---
-name: wordwarden
+name: Word Warden
 author: Simon Bengtsson
 description: Spellcheck your text files
 inputs:
