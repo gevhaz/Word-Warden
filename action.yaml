@@ -18,7 +18,7 @@ inputs:
     required: false
   word_warden_ref:
     description: "Version of Word Warden to checkout (only for development)."
-    default: "v0.1.0"
+    default: "v0.2.0"
     required: false
 runs:
   using: composite

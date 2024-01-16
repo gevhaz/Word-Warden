@@ -14,7 +14,7 @@ jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: gevhaz/word-warden@v0.1.0
+      - uses: gevhaz/word-warden@v0.2.0
 ```
 
 If it finds any words that you consider false positives, add them to the file
@@ -49,7 +49,7 @@ jobs:
   spellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: gevhaz/word-warden@v0.1.0
+      - uses: gevhaz/word-warden@v0.2.0
         with:
           language: en_IN
           dictionary: ./words.txt
