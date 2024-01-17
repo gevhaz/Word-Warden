@@ -13,7 +13,6 @@ Requirements:
     - pandoc
 """
 import argparse
-import glob
 import re
 import subprocess
 import sys
@@ -73,8 +72,8 @@ def main(args) -> int:
     wrap_print(f"{BOLD}RUNNING SPELLCHECK{RESET}")
     good_files: list[CheckedFile] = []
     bad_files: list[CheckedFile] = []
-    filepaths = glob.glob(args.files, recursive=True)
-    for filepath in filepaths:
+
+    for filepath in args.files:
         pruned_content = prune_content(Path(filepath))
 
         spellcheck_cmd = [
@@ -305,6 +304,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "files",
         type=str,
+        nargs="+",
         help="List of files to spellcheck",
     )
     parser.add_argument(

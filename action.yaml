@@ -36,8 +36,9 @@ runs:
         ref: ${{ inputs.word_warden_ref }}
         path: word-warden
 
-    - name: Install apt prerequisites
+    - name: Extract spelling language code
       run: |
+        # Extract spelling language code
         INPUT_LOCALE=${{ inputs.language }}
         echo "SPELLLANG=${INPUT_LOCALE:0:2}" >> $GITHUB_ENV
       shell: bash
@@ -50,15 +51,16 @@ runs:
         echo "::endgroup::"
       shell: bash
 
-    - name: Install Python requisites
+    - name: Install Python prerequisites
       run: |
-        echo "::group::Install Python requisites"
+        echo "::group::Install Python prerequisites"
         pip install beautifulsoup4
         echo "::endgroup::"
       shell: bash
 
     - name: Create empty dictionary if none is provided
       run: |
+        # Create empty dictionary if none is provided
         if [ -z "${{ inputs.dictionary }}" ]; then
           DEFAULT_DICTIONARY=.github/data/project-dictionary.txt
           if [ ! -f "$DEFAULT_DICTIONARY" ]; then
@@ -74,9 +76,20 @@ runs:
 
     - name: Spellcheck files
       run: |
+        # SPELLCHECK FILES
+        # Expand globbing expression
+        shopt -s globstar extglob
+        IFS=$'\n'
+        FILES=()
+        for file in ${{ inputs.files }}; do
+          FILES+=("$file")
+        done
+        unset IFS
+
+        # Do the spellchecking
         python3 ../word-warden/spellcheck.py \
           --dictionary="$DICTIONARY_PATH" \
           --language="${{ inputs.language }}" \
-          ${{ inputs.files }}
+          "${FILES[@]}"
       shell: bash
       working-directory: evaluated-repository
