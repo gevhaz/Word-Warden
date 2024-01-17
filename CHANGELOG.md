@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Change `spellcheck.py` to take one or more files as positional argument,
+  rather than a glob expression as a single string.
+
 ## [0.2.0] - 2024-01-17
 
 - Created a versioning strategy that ensures the version of the Action someone
