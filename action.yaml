@@ -16,6 +16,11 @@ inputs:
   dictionary:
     description: "Path to your personal dictionary in aspell format."
     required: false
+  preprocessing_script:
+    description: |
+      Path to a sed script that you want run on all files before they are
+      spellchecked.
+    required: false
   word_warden_ref:
     description: "Version of Word Warden to checkout (only for development)."
     default: "v0.2.0"
@@ -71,6 +76,32 @@ runs:
         else
           echo "DICTIONARY_PATH=${{ inputs.dictionary }}" >> $GITHUB_ENV
         fi
+      shell: bash
+      working-directory: evaluated-repository
+
+    - name: Preprocess files if configured
+      run: |
+        # PREPROCESS FILES IF CONFIGURED
+        # Continue to next step if no preprocessing script
+        if [ -z "${{ inputs.preprocessing_script }}" ]; then
+          exit 0
+        fi
+
+        # Expand globbing expression
+        shopt -s globstar extglob
+        IFS=$'\n'
+        FILES=()
+        for file in ${{ inputs.files }}; do
+          FILES+=("$file")
+        done
+        unset IFS
+
+        # Print what it will look like so the user can see it
+        echo "::group::Print preprocessing result"
+        sed -s -f "${{ inputs.preprocessing_script }}" "${FILES[@]}"
+        echo "::endgroup::"
+        # Modify the files
+        sed -i -f "${{ inputs.preprocessing_script }}" "${FILES[@]}"
       shell: bash
       working-directory: evaluated-repository
 
