@@ -7,6 +7,8 @@ own approved words.
 
 ## Usage
 
+### The simple case
+
 Simply include the action `gevhaz/word-warden` in your job like so:
 
 ```yaml
@@ -28,7 +30,7 @@ personal_ws-1.1 en 1000 utf-8
 as the first line in the file. Replace `en` with the language code of your
 language if it's not English.
 
-## Optional input arguments
+### Optional input arguments
 
 By default,the action checks all markdown files in your repository (that have
 the `.md` extension) but you can also select any other files by specifying the
@@ -42,6 +44,10 @@ By default the action looks for your personal dictionary at
 as if you had an empty one. Specify any other location for you dictionary with
 the `dictionary` key.
 
+If you need to preprocess your script with sed – for example to remove parts of
+files that shouldn't be spellchecked – you can use the `preprocessing_script`
+argument. You can find more details under [Common issues](#common-issues).
+
 Here is an example with all options used:
 
 ```yaml
@@ -54,7 +60,24 @@ jobs:
           language: en_IN
           dictionary: ./words.txt
           files: README.md
+          preprocessing_script: path/to/script.sed
 ```
+
+## Common issues
+
+**Pandoc crashes**: Pandoc is used to convert the files to HTML in one stage. It
+uses the file extension to determine the filetype of your file, so make sure
+it's correct.
+
+**Some content needs to be removed before spellchecking**: If the spellchecking
+script has trouble processing your file, you might want to try to preprocess it.
+You do this with the `preprocessing_script` input variable. Supply a sed script
+(basically an ordinary sed command, but in a file). It will be run on all files
+that are the target of spellchecking.
+
+If the preprocessing script affects files you don't want preprocessed, you might
+have to add two different spellcheck jobs where you target different files in
+each.
 
 ## Development
 

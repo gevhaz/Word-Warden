@@ -11,6 +11,7 @@ Kunst
 Langsam
 Leben
 Lächeln
+Pandoc
 README
 Seele
 Suchens
@@ -34,6 +35,7 @@ eigentlich
 einatmen
 eine
 ewige
+filetype
 fühlen
 geheime
 ihm
@@ -43,7 +45,11 @@ können
 langen
 langsam
 nichts
+preprocess
+preprocessed
+preprocessing
 reifte
+sed
 sei
 semver
 strahlte

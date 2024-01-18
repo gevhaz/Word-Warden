@@ -59,3 +59,18 @@ jobs:
           language: de_DE
           dictionary: .github/data/german-wordlist.txt
           word_warden_ref: "${{ github.ref }}"
+
+  # Unless the preprocessing works, pandoc will fail to convert the file, and
+  # the job will fail.
+  spellcheck-with-preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test that preprocessing works
+        uses: ./  # Root of this repo, i.e. wordwarden
+        with:
+          files: test/resources/weird-front-matter-@(1|2).markdown
+          word_warden_ref: "${{ github.ref }}"
+          preprocessing_script: "./remove-front-matter.sed"
