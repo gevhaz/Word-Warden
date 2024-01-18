@@ -79,6 +79,11 @@ If the preprocessing script affects files you don't want preprocessed, you might
 have to add two different spellcheck jobs where you target different files in
 each.
 
+**Listed misspelled word cannot be found in text**: When converting from
+markdown to HTML and back, Pandoc sometimes adds stuff. Try converting the file
+in question to HTML manually and look for the word there:
+`pandoc <file> | grep <word>`.
+
 ## Development
 
 ### Contributing
