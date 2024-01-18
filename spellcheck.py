@@ -150,17 +150,17 @@ def main(args) -> int:
             )
             print_words_context(Path(bad_file.filepath), bad_file.misspelled_words)
             wrap_print(
-                "All occurences of the detected potential misspellings are "
-                "highlighted, but code and the link part of markdown links "
-                "do not actually trigger the spellcheck. The potentially "
-                "misspelled words are:"
+                "All occurrences of the detected potentially misspelled words are "
+                "highlighted, but inline code, code blocks, and the URL part of "
+                "markdown links do not actually trigger the spellcheck and do not "
+                "need to be changed. The potentially misspelled words are:"
             )
             for bad_word in set(bad_file.misspelled_words):
                 print(f"  - {RED}{bad_word}{RESET}")
             print()
         wrap_print(
             "If you think any word marked as misspelled is actually correct in your "
-            "chosen langauge, please update your local dictionary at:"
+            "chosen language, please update your local dictionary at:"
         )
         wrap_print(f"{args.dictionary_path}")
         wrap_print(
@@ -236,7 +236,7 @@ def prune_content(filepath: Path) -> str:
 
     Return:
         String with text in markdown format, with inline code, code
-        blocks, and links removed if pandoc can discover the file
+        blocks, and links removed if Pandoc can discover the file
         format automatically, otherwise the raw content of the file.
 
     Raises:
