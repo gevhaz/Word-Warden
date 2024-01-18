@@ -145,7 +145,7 @@ def main(args) -> int:
         )
         for bad_file in bad_files:
             wrap_print(
-                f"The file {BOLD}{bad_file.filepath}{RESET} has potentially "
+                f"The file {MAGENTA}{BOLD}{bad_file.filepath}{RESET} has potentially "
                 "misspelled words, highlighted in their context here:"
             )
             print_words_context(Path(bad_file.filepath), bad_file.misspelled_words)
