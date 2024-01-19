@@ -17,6 +17,7 @@ import re
 import subprocess
 import sys
 import textwrap
+from argparse import Namespace
 from pathlib import Path
 from subprocess import CalledProcessError
 
@@ -49,15 +50,17 @@ class SpellcheckError(Exception):
 class CheckedFile:
     """Class for representing a file under spelling evaluation."""
 
-    def __init__(self, filepath: str, misspelled_words: list[str]):
+    def __init__(self, filepath: str, misspelled_words: list[str]) -> None:
+        """Initialize a CheckedFile object."""
         self.filepath = filepath
         self.misspelled_words = misspelled_words
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Print a string representation of the CheckedFile object."""
         return self.filepath
 
 
-def main(args) -> int:
+def main(args: Namespace) -> int:
     """Do all the functionality of the script.
 
     This is the main function. It holds the primary logic and the
@@ -203,9 +206,9 @@ def print_words_context(filepath: Path, words: list[str]) -> None:
     match_lines: set[int] = set()
     for index, line in enumerate(content_lines):
         for word in words:
-            if re.search(fr"\b{word}\b", line):
+            if re.search(rf"\b{word}\b", line):
                 match_lines.add(index)
-                line = re.sub(fr"\b{word}\b", f"{RED}{word}{RESET}", line)
+                line = re.sub(rf"\b{word}\b", f"{RED}{word}{RESET}", line)
         content_lines[index] = line
 
     print_lines: set[int] = set()

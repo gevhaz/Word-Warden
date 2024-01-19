@@ -1,0 +1,8 @@
+# Linting and formatting
+black~=23.12
+flake8-docstrings~=1.7
+flake8-rst-docstrings~=0.3
+flake8~=7.0
+isort~=5.13
+mypy~=1.8
+types-beautifulsoup4~=4.12
