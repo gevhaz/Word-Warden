@@ -202,12 +202,11 @@ def print_words_context(filepath: Path, words: list[str]) -> None:
     # in the text in red color.
     match_lines: set[int] = set()
     for index, line in enumerate(content_lines):
-        new_content_line = content_lines[index]
         for word in words:
-            if word in line:
+            if re.search(fr"\b{word}\b", line):
                 match_lines.add(index)
-                new_content_line = new_content_line.replace(word, f"{RED}{word}{RESET}")
-        content_lines[index] = new_content_line
+                line = re.sub(fr"\b{word}\b", f"{RED}{word}{RESET}", line)
+        content_lines[index] = line
 
     print_lines: set[int] = set()
     for match_line in match_lines:
