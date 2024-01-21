@@ -6,3 +6,6 @@ flake8~=7.0
 isort~=5.13
 mypy~=1.8
 types-beautifulsoup4~=4.12
+
+# Testing
+pytest~=7.4
