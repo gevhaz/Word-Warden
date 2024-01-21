@@ -59,7 +59,7 @@ runs:
     - name: Install Python prerequisites
       run: |
         echo "::group::Install Python prerequisites"
-        pip install beautifulsoup4
+        pip install -r requirements.txt
         echo "::endgroup::"
       shell: bash
 
