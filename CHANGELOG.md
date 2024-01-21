@@ -1,9 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.0] - 2024-01-21
 
 - Change `spellcheck.py` to take one or more files as positional argument,
   rather than a glob expression as a single string.
+- Add support for preprocessing files before they get spellchecked.
+- Enhance highlighting in output, with filenames more visible and only exact
+  matches for potentially misspelled words highlighted.
 
 ## [0.2.0] - 2024-01-17
 
