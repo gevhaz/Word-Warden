@@ -151,7 +151,8 @@ def main(args: Namespace) -> int:
                 f"The file {MAGENTA}{BOLD}{bad_file.filepath}{RESET} has potentially "
                 "misspelled words, highlighted in their context here:"
             )
-            print_words_context(Path(bad_file.filepath), bad_file.misspelled_words)
+            with open(bad_file.filepath, "r") as f:
+                print(words_context(f.readlines(), bad_file.misspelled_words))
             wrap_print(
                 "All occurrences of the detected potentially misspelled words are "
                 "highlighted, but inline code, code blocks, and the URL part of "
@@ -191,16 +192,21 @@ def wrap_print(text: str, width: int = TEXTWIDTH, end: str = "\n\n") -> None:
     print(textwrap.fill(text, width=width), end=end)
 
 
-def print_words_context(filepath: Path, words: list[str]) -> None:
-    """Print lines surrounding line containing any of words.
+def words_context(content_lines: list[str], words: list[str]) -> str:
+    """Highlight words in their context in the provided lines of text.
 
     Args:
-        filepath: The while for which to show word context.
-        words: The list of words whose context in file to show.
-    """
-    with open(filepath, "r") as f:
-        content_lines = f.readlines()
+        content_lines: The lines of text in which to show word context.
+        words: The list of words to show in their context.
 
+    Returns:
+        All lines containing any of the specified words, and the
+        surrounding lines above and below, with highlighting added to
+        the words in red and line numbers added to the start of the
+        line.
+    """
+    if len(words) == 0 or len(content_lines) == 0:
+        return "".join(content_lines)
     # Find line numbers with misspelled words, and highlight those words
     # in the text in red color.
     match_lines: set[int] = set()
@@ -219,15 +225,19 @@ def print_words_context(filepath: Path, words: list[str]) -> None:
             print_lines.add(match_line + 1)
         print_lines.add(match_line)
 
+    if not print_lines:
+        return "".join(content_lines)
+
+    all_context: list[str] = []
     last_print_line = sorted(print_lines)[0]
     line_number_width = len(str(len(content_lines) + 1))
     for print_line in sorted(print_lines):
         if print_line - last_print_line > 1:
-            print(f"{BLUE}{'-' * line_number_width}{RESET}")
+            all_context.append(f"{BLUE}{'-' * line_number_width}{RESET}\n")
         line_number = f"{print_line + 1:{line_number_width}}:"
-        print(f"{BLUE}{line_number}{RESET}", content_lines[print_line], end="")
+        all_context.append(f"{BLUE}{line_number}{RESET} {content_lines[print_line]}")
         last_print_line = print_line
-    print()
+    return "".join(all_context)
 
 
 def prune_content(filepath: Path) -> str:
