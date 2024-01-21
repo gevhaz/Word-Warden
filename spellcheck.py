@@ -267,8 +267,7 @@ def prune_content(filepath: Path) -> str:
         )
     except CalledProcessError as e:
         raise SpellcheckError(
-            f"Failed to convert '{filepath}' to HTML: "
-            f"Running '{e.cmd}' failed with output: {e.stderr}"
+            f"Failed to convert '{filepath}' to HTML running: {' '.join(e.cmd)}"
         )
 
     html_version = pandoc_to_html_result.stdout.strip()
@@ -287,7 +286,13 @@ def prune_content(filepath: Path) -> str:
     pruned_html = re.sub(r"https://[\S]*", "", pruned_html)
     try:
         pandoc_to_markdown_result = subprocess.run(
-            ("pandoc", "--from", "html", "--to", "markdown"),
+            (
+                "pandoc",
+                "--from",
+                "html",
+                "--to",
+                "markdown",
+            ),
             stdout=subprocess.PIPE,
             text=True,
             check=True,
@@ -295,8 +300,8 @@ def prune_content(filepath: Path) -> str:
         )
     except CalledProcessError as e:
         raise SpellcheckError(
-            f"Failed to convert '{filepath}' back to markdown from HTML: "
-            f"Running '{e.cmd}' failed with output: {e.stderr}"
+            f"Failed to convert '{filepath}' back to markdown from HTML "
+            f"running: {' '.join(e.cmd)}"
         )
     pruned_markdown = pandoc_to_markdown_result.stdout
 

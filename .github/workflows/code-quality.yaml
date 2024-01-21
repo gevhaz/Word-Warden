@@ -13,7 +13,7 @@ jobs:
       matrix:
         tool:
           - "flake8"
-          - "mypy --strict"
+          - "mypy --strict --exclude=test_spellcheck.py"
           - "black --check --diff --color"
           - "isort --check -diff"
 
@@ -31,3 +31,31 @@ jobs:
 
       - name: Run check
         run: ${{ matrix.tool }} .
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install apt dependencies
+        run: sudo apt install aspell aspell-en
+
+      - name: Install pandoc from GitHub release
+        run: |
+          # Workaround for Ubuntu being on Pandoc 2.
+          # Tests need it to default to ATX headers.
+          wget https://github.com/jgm/pandoc/releases/download/3.1.11.1/pandoc-3.1.11.1-1-amd64.deb
+          sudo dpkg -i pandoc-3.1.11.1-1-amd64.deb
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+
+      - name: Run unit tests
+        run: pytest

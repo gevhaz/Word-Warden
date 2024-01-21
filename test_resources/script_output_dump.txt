@@ -1,0 +1,49 @@
+{BOLD}RUNNING SPELLCHECK{RESET}
+
+The following file(s) are free from spelling errors:
+
+  - test_resources/sample.yaml
+
+Found {BOLD}2{RESET} files with potentially misspelled words.
+
+The file {MAGENTA}{BOLD}test_resources/all_parameters.md{RESET} has potentially
+misspelled words, highlighted in their context here:
+
+{BLUE}66:{RESET} 
+{BLUE}67:{RESET} {RED}wordindictionary{RESET}
+
+All occurrences of the detected potentially misspelled words are highlighted,
+but inline code, code blocks, and the URL part of markdown links do not actually
+trigger the spellcheck and do not need to be changed. The potentially misspelled
+words are:
+
+  - {RED}wordindictionary{RESET}
+
+The file {MAGENTA}{BOLD}test_resources/file with spaces.md{RESET} has potentially
+misspelled words, highlighted in their context here:
+
+{BLUE}1:{RESET} “You will learn it,” spoke {RED}Vasudeva{RESET}, “but not from me. The river has
+{BLUE}2:{RESET} taught me to listen, from it you will learn it as well. It knows
+
+All occurrences of the detected potentially misspelled words are highlighted,
+but inline code, code blocks, and the URL part of markdown links do not actually
+trigger the spellcheck and do not need to be changed. The potentially misspelled
+words are:
+
+  - {RED}Vasudeva{RESET}
+
+If you think any word marked as misspelled is actually correct in your chosen
+language, please update your local dictionary at:
+
+.github/data/yaml-wordlist.txt
+
+If the word in question is more 'inline code' than natural language, you can
+circumvent spellchecking by using backticks (`) since inline code is not
+spellchecked.
+
+The following file(s) may have spelling errors:
+
+  - test_resources/all_parameters.md
+  - test_resources/file with spaces.md
+
+{RED}Some checked files may have spelling errors!{RESET}
