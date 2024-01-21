@@ -1,11 +1,11 @@
 """Scrip for spellchecking files using aspell.
 
-Spellcheck the provided files with aspell using the provided dictionary.
-The language should be specified with a locale code like 'en_US'
+Spellcheck the provided files with aspell using the provided aspell
+personal dictionary. That is, the first must be something like
+'personal_ws-1.1 <language> 1000 utf-8'. The language should be
+specified with a locale code like 'en_IN' Example usage:
 
-Example usage:
-
-    $ python3 --dictionary wordlist.txt README.md
+    $ python3 --dictionary wordlist.txt --language en_IN README.md
 
 Requirements:
 
@@ -296,10 +296,17 @@ def prune_content(filepath: Path) -> str:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=(
-            "Spellcheck the provided files with aspell using the provided dictionary."
-            " The language should be specified with a locale code like 'en_US'.\n\n"
-            "Example usage:\n\n$ python3 --dictionary wordlist.txt README.md\n\n"
-            "Requirements:\n\n- aspell\n- pandoc"
+            "\nSpellcheck the provided files with aspell using the provided aspell"
+            "personal dictionary. That is, the first must be something like"
+            "'personal_ws-1.1 <language> 1000 utf-8'. The language should be"
+            "specified with a locale code like 'en_IN' Example usage:"
+            "\n"
+            "\n    $ python3 --dictionary wordlist.txt --language en_IN README.md"
+            "\n"
+            "\nRequirements:"
+            "\n"
+            "\n    - aspell"
+            "\n    - pandoc"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -327,7 +334,7 @@ if __name__ == "__main__":
         required=True,
         type=str,
         help=(
-            "Path to personal dictionary with words to accept "
+            "Path to aspell personal dictionary with words to accept "
             "(must have 'personal_ws-1.1 <language> 1000 utf-8') on the first line."
         ),
     )
