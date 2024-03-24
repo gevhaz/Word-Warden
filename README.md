@@ -1,5 +1,7 @@
 # Word Warden
 
+![Wordwarden Logo](wordwarden.png)
+
 **Word Warden** is a GitHub action that spellchecks markdown or other files in
 your repository. It uses `aspell` under the hood, checking your text against a
 dictionary for the language of your chose, plus a personal dictionary with your
