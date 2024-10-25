@@ -282,6 +282,9 @@ def prune_content(filepath: Path) -> str:
     for a_tag in soup.find_all("a"):
         a_tag.replace_with(a_tag.get_text())
 
+    for tag in soup.find_all(attrs={"id": True}):
+        del tag["id"]
+
     pruned_html = str(soup)
     pruned_html = re.sub(r"https://[\S]*", "", pruned_html)
     try:
