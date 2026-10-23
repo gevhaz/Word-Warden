@@ -30,12 +30,12 @@ runs:
   steps:
 
     - name: Checkout repository to spellcheck
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         path: evaluated-repository
 
     - name: Checkout Word Warden
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: gevhaz/word-warden
         ref: ${{ inputs.word_warden_ref }}
